@@ -2,6 +2,7 @@
 # https://github.com/GadgetFactory/Papilio-DUO
 # http://papilio.cc/index.php?n=Papilio.PapilioDUOHardwareGuide
 # http://papilio.cc/index.php?n=Papilio.DUOStart
+# http://www.papilio.cc/uploads/Papilio/Papilio_DUO.pdf?raw=true
 # http://forum.gadgetfactory.net/files/file/235-papilio-duo-generic-ucf/
 #
 # SPI Flash:
