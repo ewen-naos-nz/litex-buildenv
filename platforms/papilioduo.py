@@ -1,4 +1,5 @@
 # Papilio Duo
+# https://github.com/GadgetFactory/Papilio-DUO
 # http://papilio.cc/index.php?n=Papilio.PapilioDUOHardwareGuide
 # http://papilio.cc/index.php?n=Papilio.DUOStart
 # http://forum.gadgetfactory.net/files/file/235-papilio-duo-generic-ucf/
@@ -18,11 +19,19 @@
 #
 # Available in 512KB And 2MB SRAM models (static RAM; not DRAM).
 #
+# Programming:
+# http://papilio.cc/index.php?n=Papilio.GettingStarted#Linux
+# https://github.com/GadgetFactory/Papilio-Loader/
+#
+# May also be possible to add to OpenOCD, eg via patch at:
+# https://github.com/timvideos/conda-hdmi2usb-packages/tree/master/openocd
+#
 # NOTE: the many, many, pins that map tp Arduino pins not currently mapped;
 # just the minimal pins to get serial working
 #
 # NOTE: external SRAM not currently wired either; unclear how to handle
 # external SRAM, so attempting board without main ram
+
 
 from litex.build.generic_platform import *
 from litex.build.xilinx import XilinxPlatform
