@@ -46,7 +46,13 @@ firmware-flash-$(PLATFORM):
 	@false
 
 firmware-connect-$(PLATFORM):
-	flterm --port=$(COMM_PORT) --speed=$(BAUD)
+	@if [ -n "$(COMM_PORT)" ]; then \
+		echo "Running: flterm --port=$(COMM_PORT) --speed=$(BAUD)"; \
+		flterm --port=$(COMM_PORT) --speed=$(BAUD); \
+	else \
+		echo "You need to set COMM_PORT=Your_Serial_Adapter" >&2; \
+		exit 1; \
+	fi
 
 firmware-clear-$(PLATFORM):
 	@echo "FIXME: Unsupported?."
