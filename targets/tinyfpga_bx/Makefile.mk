@@ -17,6 +17,10 @@ else
 PROG_EXTRA_ARGS=
 endif
 
+# Default SRAM size to max that fits inside FPGA (10kB)
+SRAM_SIZE ?= 10240
+TARGET_EXTRA_CMDLINE=--integrated-sram-size $(SRAM_SIZE)
+
 # Image
 image-flash-$(PLATFORM):
 	tinyprog $(PROG_EXTRA_ARGS) --program-image $(IMAGE_FILE)

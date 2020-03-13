@@ -63,10 +63,17 @@ class BaseSoC(SoCCore):
     mem_map.update(SoCCore.mem_map)
 
     def __init__(self, platform, **kwargs):
-        if 'integrated_rom_size' not in kwargs:
-            kwargs['integrated_rom_size']=0
-        if 'integrated_sram_size' not in kwargs:
-            kwargs['integrated_sram_size']=0x2800
+        # IF you want more SRAM than the litex default (4KB) ensure that
+        # --integrated-sram-size is passed to the make script, eg, from
+        # TARGET_EXTRA_CMDLINE (which passes 10kB, the most that will fit
+        # within the FPGA).
+        #
+        # Force ROM out of FPGA and into spiflash linker region for space reasons
+        # We save the ROM size passed in as the BIOS size, and then force the
+        # integrated ROM size to 0 to avoid integrated ROM.
+        #
+        bios_size = kwargs['integrated_rom_size']
+        kwargs['integrated_rom_size']=0
 
         # FIXME: Force either lite or minimal variants of CPUs; full is too big.
 
@@ -93,7 +100,6 @@ class BaseSoC(SoCCore):
         self.register_mem("spiflash", self.mem_map["spiflash"],
             self.spiflash.bus, size=platform.spiflash_total_size)
 
-        bios_size = 0x8000
         self.add_constant("ROM_DISABLE", 1)
         self.add_memory_region(
             "rom", kwargs['cpu_reset_address'], bios_size,
@@ -112,13 +118,5 @@ class BaseSoC(SoCCore):
 
         # Disable USB activity until we switch to a USB UART.
         self.comb += [platform.request("usb").pullup.eq(0)]
-
-        # Arachne-pnr is unsupported- it has trouble routing this design
-        # on this particular board reliably. That said, annotate the build
-        # template anyway just in case.
-        # Disable final deep-sleep power down so firmware words are loaded
-        # onto softcore's address bus.
-        platform.toolchain.build_template[3] = "icepack -s {build_name}.txt {build_name}.bin"
-        platform.toolchain.nextpnr_build_template[2] = "icepack -s {build_name}.txt {build_name}.bin"
 
 SoC = BaseSoC

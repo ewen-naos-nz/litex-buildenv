@@ -176,6 +176,7 @@ MAKE_CMD=\
 		$(MISOC_EXTRA_CMDLINE) \
 		$(LITEX_EXTRA_CMDLINE) \
 		$(MAKE_LITEX_EXTRA_CMDLINE) \
+		$(TARGET_EXTRA_CMDLINE) \
 
 # We use the special PIPESTATUS which is bash only below.
 SHELL := /bin/bash
